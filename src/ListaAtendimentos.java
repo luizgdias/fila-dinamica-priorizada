@@ -14,13 +14,13 @@ public class ListaAtendimentos {
 		
 			if (this.qtdAtendimentos == 0) {
 				
-				novo.urgencia				= novo.assuntos.calculaUrgenciaAtendimento();
+				novo.urgencia				= novo.assuntos.calculaUrgenciaAtendimento(cliente);
 				novo.proximoAtendimento 	= ultimoAtendimento;
 				//novo.anteriorAtendimento	=	null;
 				this.primeiroAtendimento 	= novo;
 				this.ultimoAtendimento		= novo;
 			}else {
-				novo.urgencia							= novo.assuntos.calculaUrgenciaAtendimento();
+				novo.urgencia							= novo.assuntos.calculaUrgenciaAtendimento(cliente);
 				//novo.anteriorAtendimento				= ultimoAtendimento;
 				ultimoAtendimento.proximoAtendimento	= novo;
 				ultimoAtendimento 						= novo;
@@ -35,8 +35,11 @@ public class ListaAtendimentos {
 		if (this.qtdAtendimentos == 0) {
 			System.out.println("A lista está vazia!");
 		}else {
+			
 			Atendimento aux = primeiroAtendimento;
+			
 			for (int i = 0; i < this.qtdAtendimentos; i++) {
+				
 				System.out.println("Cliente: "+ aux.cliente.nome+" / Hora da chegada: "+
 						aux.horaChegada + " / Urgência: "+aux.urgencia );
 
@@ -45,24 +48,19 @@ public class ListaAtendimentos {
 			}
 		}
 	}
+	
 
 	public void atender() {
 		for (int i = 0; i < this.qtdAtendimentos; i++) {
 				
 		}
-		
-		heap();
-		
-		
+		heap();	
 	}
 
 	private void heap() {
-		
 		for (int i = qtdAtendimentos/2; i >= 0; i--) {
 			descer(i);
-		}
-		
-		
+		}		
 	}
 
 	public void descer(int i) {
@@ -74,7 +72,6 @@ public class ListaAtendimentos {
 			aux = aux.proximoAtendimento;
 		}
 		System.out.print(aux.cliente.nome);
-		
 	}
 
 	public void encerrar() {

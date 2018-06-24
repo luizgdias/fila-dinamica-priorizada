@@ -14,20 +14,23 @@
  * Aluno: Luiz Gustavo Dias
  * email: gusttavodiias@gmail.com
  * link github: https://github.com/luizgdias/fila-dinamica-priorizada
+ * 
+ * Obs.1: O heap não considera prioridades iguais, apenas maiores e menores.
  */
 
 public class Principal {
 
 	public static void main(String[] args) {
+		
 		/*************************************************************************************
-		 * Criando tipo de assunto
+		 * Criando tipo de assunto: tipo, título, urgência
 		 *************************************************************************************/
-		TipoAssunto pf = new TipoAssunto("pf", "pessoa física", 20);
+		TipoAssunto pf = new TipoAssunto("pf", "pessoa física", 20); 
 		TipoAssunto pj = new TipoAssunto("pj", "pessoa jurídica", 10);
 		TipoAssunto nc = new TipoAssunto("nc", "não correntista", 01);
 		
 		/*************************************************************************************
-		 * Criando assuntos
+		 * Criando assuntos: tipo, descrição, providencia
 		 *************************************************************************************/
 		Assunto saquePf = new Assunto();
 		saquePf.setTipoAssunto(pf);
@@ -54,45 +57,58 @@ public class Principal {
 		 * Criando lista de assuntos padrão
 		 *************************************************************************************/
 		ListaAssuntos listaPadrao = new ListaAssuntos();
-		listaPadrao.inserirNoFinal(saquePf);
-		listaPadrao.inserirNoFinal(depositoPj);
 		listaPadrao.inserirNoFinal(pagamento);
+		listaPadrao.inserirNoFinal(saquePf);
 		listaPadrao.inserirNoFinal(depositoPj);
 		
 		/*************************************************************************************
-		 * Criando clientes e suas respectivas listas de assunto
+		 * Criando clientes(cpf, nome) e suas respectivas listas de assunto
 		 *************************************************************************************/
-		Cliente Luiz 		= new Cliente(1010, "Luiz	");
-		ListaAssuntos assuntosLuiz = new ListaAssuntos();
-		assuntosLuiz.inserirNoFinal(depositoPj);
-		assuntosLuiz.inserirNoFinal(saquePf);
-		
-		Cliente LuizC 		= new Cliente(1011, "Luic C	");
+		Cliente LuizC 		= new Cliente(1011, "Luic C	", 49);
 		ListaAssuntos assuntosLuizC = new ListaAssuntos();
-		assuntosLuizC.inserirNoFinal(pagamento);
-		assuntosLuizC.inserirNoFinal(pagamento);
+		assuntosLuizC.inserirNoFinal(saquePf);
 		assuntosLuizC.inserirNoFinal(depositoPj);
 		assuntosLuizC.inserirNoFinal(pagamento);
-		assuntosLuizC.inserirNoFinal(depositoPj);
+		//assuntosLuizC.inserirNoFinal(saquePf);
+		//assuntosLuizC.inserirNoFinal(depositoPj);
 		
-		Cliente Kelli 		= new Cliente(1012, "Kelli	");
+		Cliente Luiz 		= new Cliente(1010, "Luiz	", 25);
+		ListaAssuntos assuntosLuiz = new ListaAssuntos();
+		
+		assuntosLuiz.inserirNoFinal(pagamento);
+		assuntosLuiz.inserirNoFinal(saquePf);
+		assuntosLuiz.inserirNoFinal(depositoPj);
+		assuntosLuiz.inserirNoFinal(pagamento);
+		assuntosLuiz.inserirNoFinal(saquePf);
+		assuntosLuiz.inserirNoFinal(depositoPj);
+		assuntosLuiz.inserirNoFinal(pagamento);
+		assuntosLuiz.inserirNoFinal(saquePf);
+		assuntosLuiz.inserirNoFinal(depositoPj);
+				
+		
+		Cliente Kelli 		= new Cliente(1012, "Kelli	", 44);
 		ListaAssuntos assuntosKelli = new ListaAssuntos();
 		assuntosKelli.inserirNoFinal(saquePf);
 		
-		Cliente Carlos 		= new Cliente(1012, "Carlos	");
+		Cliente Carlos 		= new Cliente(1012, "Carlos	", 24);
 		ListaAssuntos assuntosCarlos = new ListaAssuntos();
 		assuntosCarlos.inserirNoFinal(saquePf);
 		assuntosCarlos.inserirNoFinal(depositoPj);
 		
+		Cliente Alana 		= new Cliente(102, "Alana	", 26);
+		ListaAssuntos assuntosAlana = new ListaAssuntos();
+		assuntosAlana.inserirNoFinal(depositoPj);
+		
 		/*************************************************************************************
-		 * Enfileirando os atendimentos - função recepcionar()
+		 * Enfileirando os atendimentos - função recepcionar(cliente, lista de assuntos, hora de chegada)
 		 *************************************************************************************/
 		ListaAtendimentos listaDeAtendimentos = new ListaAtendimentos();
 		listaDeAtendimentos.recepcionar(Luiz	, assuntosLuiz	, 10);
 		listaDeAtendimentos.recepcionar(LuizC	, assuntosLuizC	, 11);
 		listaDeAtendimentos.recepcionar(Kelli	, assuntosKelli	, 12);
 		listaDeAtendimentos.recepcionar(Carlos	, assuntosCarlos, 13);
-		listaDeAtendimentos.recepcionar(Kelli	, assuntosKelli	, 12);
+		listaDeAtendimentos.recepcionar(Alana	, assuntosAlana	, 10);
+		
 
 
 		/*************************************************************************************
@@ -102,10 +118,9 @@ public class Principal {
 		
 		//assuntosLuizC.imprimeListaAssuntos();
 		listaDeAtendimentosP.atender(listaDeAtendimentos);
-		
 		listaDeAtendimentosP.imprimeFilaP();
 		listaDeAtendimentosP.encerrar(listaPadrao);
-		listaDeAtendimentosP.imprimeFilaP();
+		//assuntosLuiz.imprimeListaAssuntos();
 		//listaPadrao.imprimeListaAssuntos();
 		//listaDeAtendimentosP.atender(listaDeAtendimentos);
 				

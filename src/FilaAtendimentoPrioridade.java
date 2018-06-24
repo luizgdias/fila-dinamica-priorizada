@@ -8,14 +8,17 @@ public class FilaAtendimentoPrioridade {
 	}
 	
 	public void imprimeFilaP() {
-		System.out.println("\nTamanho maximo da fila: "+ atendimentos.length +"\nFim da fila:" + (fimFila+1));
+		//System.out.println("\nTamanho maximo da fila: "+ atendimentos.length +"\nFim da fila:" + (fimFila+1));
+		System.out.println("\n");
 		for(int x = 0; x <= fimFila; x++) {
 			System.out.println("Cliente: "+atendimentos[x].cliente.nome+ " / Urgencia: "+ atendimentos[x].urgencia);
 		}
+		System.out.println("\n");
+
 	}
 
 	public void atender(ListaAtendimentos listaDeAtendimentos) {
-		System.out.println("Atender");
+		//System.out.println("Atender");
 		if (listaDeAtendimentos.qtdAtendimentos == 0) {
 			System.out.println("A lista está vazia!");
 		}else {
@@ -38,10 +41,12 @@ public class FilaAtendimentoPrioridade {
 
 
 	private void descer(int i) {
-		int filho = 2*i+1;
+		int filho = 2*i+1; //calcula filho da direita
+		
 		if (filho < atendimentos.length ) {
-			if (filho < atendimentos.length ) {
-				if (atendimentos[i].urgencia > atendimentos[filho].urgencia) {
+			
+			if (filho < atendimentos.length -1) { // tem filho da esquerda
+				if (atendimentos[i].urgencia > atendimentos[filho].urgencia) { //escolhe o maior
 					filho = filho + 1;
 				}
 				
@@ -66,24 +71,31 @@ public class FilaAtendimentoPrioridade {
 		if (fimFila < 0) {
 			System.out.println("A fila está vazia!");
 		}else {
-			System.out.println(atendimentos[0].assuntos.qtdAssuntos);
-			
-			for (int i = 0; i < atendimentos[0].assuntos.qtdAssuntos; i++) {
-				System.out.println("Assunto do cliente:"+atendimentos[0].assuntos.primeiroAssunto.descricao);
-				
-				Assunto t = listaPadrao.primeiroAssunto;
-				for (int j = 0; j < listaPadrao.qtdAssuntos; j++) {
-					System.out.println("Assunto da lista padrao: "+t.descricao);
-					
-					//listaPadrao.primeiroAssunto = listaPadrao.primeiroAssunto.proximoAssunto;
-					t = t.proximoAssunto;
-					
-					
-				}
-				
-				atendimentos[0].assuntos.primeiroAssunto = atendimentos[0].assuntos.primeiroAssunto.proximoAssunto;
-			}
+			incrementaEstatistica(listaPadrao, atendimentos[0]);
 		}	
+	}
+
+	private void incrementaEstatistica(ListaAssuntos listaPadrao, Atendimento atendimento) {
+
+		System.out.println(atendimento.cliente.nome);
+		for (int i = 0; i < atendimento.assuntos.qtdAssuntos; i++) {
+			System.out.println("Assunto do cliente: "+atendimento.assuntos.primeiroAssunto.descricao);
+			for (int j = 0; j < listaPadrao.qtdAssuntos; j++) {
+				
+				if (atendimento.assuntos.primeiroAssunto.tipoAssunto == listaPadrao.primeiroAssunto.tipoAssunto) {
+					System.out.println("Assunto padrão: "+listaPadrao.primeiroAssunto.descricao+"*");
+					listaPadrao.primeiroAssunto.cont++;
+				}else {
+					System.out.println("Assunto padrão: "+listaPadrao.primeiroAssunto.descricao);
+				}
+				listaPadrao.primeiroAssunto = listaPadrao.primeiroAssunto.proximoAssunto;
+			}
+			atendimento.assuntos.primeiroAssunto = atendimento.assuntos.primeiroAssunto.proximoAssunto;
+			
+			
+		}
+
+		
 	}
 
 }
